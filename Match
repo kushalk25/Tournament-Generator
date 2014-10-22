@@ -1,0 +1,29 @@
+package game;
+
+public class Match{
+
+	Team home;
+	Team away;
+	public int homeScore;
+	public int awayScore;
+	
+	public Match(Team team1, Team team2){
+		home = team1;
+		away = team2;
+		homeScore = 0;
+		awayScore = 0;
+	}
+	
+	public Team getHome(){
+		return home;
+	}
+	
+	public Team getAway(){
+		return away;
+	}
+	
+	public String printTeams(){
+		return home.getManager().getName() + " VS " + away.getManager().getName();
+	}
+	
+}
