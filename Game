@@ -1,0 +1,112 @@
+package game;
+
+import java.util.Random;
+import java.util.Scanner;
+
+public class Game {
+
+	private static Random random = new Random();
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("How many managers are in this competition?");
+		Scanner sc = new Scanner(System.in);
+		int participants = sc.nextInt();
+		
+		Manager managers[] = new Manager[participants];
+		
+		for(int i =0; i<participants; i++ ){
+			System.out.println("What is the new Manager's name?");
+			String name = sc.next();
+			
+			managers[i] = new Manager(name);
+			
+		}
+		
+		// Ask which game mode the user is using
+		//System.out.println("What Game Mode are you choosing: \nDrafts \nNormal");
+		//String selection = sc.next();
+		
+		for(int i =1; i<=participants; i++ ){
+		System.out.println("manager "+i+": "+managers[i-1].getName());
+		}
+		
+		System.out.println("Drafts time!!");
+		
+		
+		// ask how many players per team
+		int numPlayers = 0;
+		
+		managers = drafts(managers, numPlayers);
+		
+		// Next choose whether to do a leauge, or tournament
+		
+		boolean leagueChosen = true;
+		
+		if (leagueChosen){
+			// how many times will two teams play each other?
+			int vsNum = 1;
+			
+			League league = new League(managers, vsNum);
+			
+			league.playLeague();
+		}
+		
+	}
+
+	private static Manager[] drafts(Manager[] managers, int numPlayers) {
+		// TODO Auto-generated method stub
+		int participants = managers.length;
+		
+		Scanner sc2 = new Scanner(System.in);
+		
+		managers = randomize(managers);
+		
+		for(int i =1; i<=participants; i++ ){
+			System.out.println("manager "+i+": "+managers[i-1].getName());
+		}
+		
+		int round = 1;
+		
+		while(round <= numPlayers ){
+			System.out.println("round "+round);
+			
+			if(round%2 == 1){
+				for(int i = 0; i<participants; i++){
+					
+					System.out.println("Choose a player "+managers[i].getName());
+					String name = sc2.next();
+					managers[i].getTeam().addPlayer(name);
+				}
+			} else {
+					for(int i = participants-1; i>=0; i--){
+					
+					System.out.println("Choose a player "+managers[i].getName());
+					String name = sc2.next();
+					managers[i].getTeam().addPlayer(name);
+				}
+				
+			}
+			round++;
+		}
+		
+		round--;
+		return managers;
+	}
+
+	private static Manager[] randomize(Manager[] managers) {
+		
+		Random rnd = new Random();
+	    for (int i = managers.length - 1; i > 0; i--)
+	    {
+	      int index = rnd.nextInt(i + 1);
+	  
+	      Manager temp = managers[index];
+	      managers[index] = managers[i];
+	      managers[i] = temp;
+	    }
+
+		return managers;
+	}
+
+}
