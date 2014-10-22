@@ -1,0 +1,64 @@
+package game;
+
+public class Round {
+	
+	private Match[] matches;
+	private Team[] teams;
+	int mIndex;
+	int tIndex;
+	private int maxMatches;
+	// do we need this?
+	private int maxTeams;
+	
+	public Round (int numM, int numT){
+		
+		matches = new Match[numM];
+		teams = new Team[numT];
+		maxMatches = numM;
+		maxTeams = numT;
+		mIndex=0;
+		tIndex=0; 
+		
+	}
+	
+	public void addMatch(Match m){
+		matches[mIndex] = m;
+		mIndex++;
+		
+		teams[tIndex] = m.getHome();
+		tIndex++;
+		teams[tIndex] = m.getAway();
+		tIndex++;
+		
+	}
+	
+	public boolean moreMatches(){
+		// this part might give an error
+		if (mIndex < maxMatches-1) return true;
+		return false;
+	} 
+	
+	public boolean validMatch(Match m){
+		boolean valid = (teamInRound(m.getHome()) && teamInRound(m.getAway()));
+		System.out.println(valid+" "+m.printTeams());
+		return valid;
+	}
+	
+	private boolean teamInRound(Team t){
+		
+		boolean notInRound = true;
+		
+		int i = 0;
+		// should it be i<tIndex ?
+		while(notInRound && i<=tIndex) {
+			if(teams[i] == t) notInRound = false;
+			i++;
+		}
+		return notInRound;
+	}
+	
+	public Match[] getMatches(){
+		return matches;
+	}
+	
+}
