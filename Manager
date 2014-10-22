@@ -1,0 +1,33 @@
+package game;
+
+public class Manager {
+
+	private String name;
+	private Team team;
+	
+	// private Team pastTeams (Linked List or dynamic array?)
+	
+	//TODO: public Trophy trophy (Linked List or Dynamic Array?)
+	
+	private int trophyCount;
+	
+	public Manager(String mName){
+		name = mName;
+		this.addTeam();
+	}
+
+	public void addTeam() {
+		// TODO Team names or no Team names?
+		team = new Team(this);
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public Team getTeam(){
+		return team;
+	}
+	
+	
+}
