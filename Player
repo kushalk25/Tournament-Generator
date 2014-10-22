@@ -1,0 +1,27 @@
+package game;
+
+public class Player {
+
+	private String name;
+	private int goalCount;
+	Team team;
+	
+	public Player(String pName, Team t){
+		name = pName;
+		team = t;
+		goalCount = 0;
+	}
+	
+	public String getName(){
+		return name;
+	}
+	
+	public void goalScored(){
+		goalCount++;
+	}
+	
+	public int getGoalCount(){
+		return goalCount;
+	}
+	
+}
