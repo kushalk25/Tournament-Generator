@@ -1,0 +1,92 @@
+package game;
+
+public class Team {
+
+	// pointer to manager??
+	
+	// when do we need this?
+	private String teamName;
+	private Manager manager;
+	
+	private Player[] players;
+	public int maxPlayers;
+	public int totalGoals;
+	public Player topScorer;
+	public int points;
+	public int winPoints;
+	public int drawPoints;
+	public int losePoints;
+	public int wins;
+	public int draws;
+	public int losses;
+	
+	public Team(Manager man){
+		// insure that max players is never reached
+		maxPlayers = 40;
+		players = new Player[maxPlayers];
+		totalGoals = 0;
+		points = 0;
+		winPoints = 0;
+		drawPoints = 0;
+		losePoints = 0;
+		wins = 0;
+		draws = 0;
+		losses = 0;
+		
+		manager = man;
+	}
+	
+	public void addPlayer(String name){
+		int i = 0;
+		while(players[i] != null){
+			i++;
+		}
+		if (i<maxPlayers){
+			players[i] = new Player(name, this);
+		} else {
+			System.out.print("your code sucks ellelelelelelele");
+		}
+	}
+	
+	public Player getPlayer(String pName){
+		int i = 0;
+		while(players[i].getName() != pName && i<maxPlayers){
+			i++;
+		}
+		if (i<maxPlayers){
+			return players[i];
+		} else {
+			System.out.print("nah matetry again");
+			return null;
+		}
+	}
+	
+	public void goalScored(String pName){
+		Player scorer = this.getPlayer(pName);
+		scorer.goalScored();
+		totalGoals++;
+		// see if we have a new top goal scorer
+		if (topScorer.getGoalCount() < scorer.getGoalCount()){
+			topScorer = scorer;
+		}
+	}
+	
+	public Manager getManager(){
+		return manager;
+	}
+	
+	public void win(){
+		points += winPoints;
+		wins++;
+	}
+	
+	public void draw(){
+		points += drawPoints;
+		draws++;
+	}
+	
+	public void lose(){
+		points += losePoints;
+		losses++;
+	}
+}
